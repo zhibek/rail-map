@@ -2,6 +2,7 @@
   "name": "rail-map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://zhibek.github.io/travel-map/",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
