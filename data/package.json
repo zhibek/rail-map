@@ -1,0 +1,9 @@
+{
+  "name": "travel-map-data",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "main": "node src/main.js"
+  }
+}
