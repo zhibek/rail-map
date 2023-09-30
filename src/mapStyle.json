@@ -1,0 +1,299 @@
+{
+	"version": 8,
+	"sources": {
+		"naturalearth_vector": {
+			"type": "vector",
+			"maxzoom": 7,
+			"tiles": [
+				"https://klokantech.github.io/naturalearthtiles/tiles/natural_earth.vector/{z}/{x}/{y}.pbf"
+			]
+		}
+	},
+	"glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=uLpPPYztZ2N8w3JqsQy2",
+	"sprite": "https://api.maptiler.com/maps/streets/sprite",
+	"layers": [{
+			"id": "background",
+			"type": "background",
+			"paint": {
+				"background-color": "#f8f4f0"
+			}
+		},
+		{
+			"id": "river",
+			"type": "line",
+			"source": "naturalearth_vector",
+			"source-layer": "river",
+			"layout": {
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "#a0c8f0",
+				"line-width": {
+					"base": 1.2,
+					"stops": [
+						[
+							11,
+							1
+						],
+						[
+							20,
+							6
+						]
+					]
+				}
+			}
+		},
+		{
+			"id": "water_shadow",
+			"type": "fill",
+			"source": "naturalearth_vector",
+			"source-layer": "water",
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "#a0c8f0",
+				"fill-opacity": 1,
+				"fill-translate": {
+					"base": 1.2,
+					"stops": [
+						[
+							7,
+							[
+								0,
+								0
+							]
+						],
+						[
+							16,
+							[
+								-1,
+								-1
+							]
+						]
+					]
+				},
+				"fill-translate-anchor": "viewport"
+			}
+		},
+		{
+			"id": "water",
+			"type": "fill",
+			"source": "naturalearth_vector",
+			"source-layer": "water",
+			"filter": [
+				"in",
+				"$type",
+				"LineString",
+				"Point",
+				"Polygon"
+			],
+			"paint": {
+				"fill-color": "hsl(210, 87%, 84%)"
+			}
+		},
+		{
+			"id": "urban",
+			"type": "fill",
+			"source": "naturalearth_vector",
+			"source-layer": "urban",
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "hsla(72, 5%, 77%, 0.47)",
+				"fill-opacity": {
+					"base": 1,
+					"stops": [
+						[
+							6,
+							0
+						],
+						[
+							9,
+							1
+						]
+					]
+				},
+				"fill-antialias": true,
+				"fill-outline-color": "hsla(0, 100%, 99%, 0)"
+			}
+		},
+		{
+			"id": "ice",
+			"type": "fill",
+			"source": "naturalearth_vector",
+			"source-layer": "ice",
+			"layout": {
+				"visibility": "visible"
+			},
+			"paint": {
+				"fill-color": "hsla(215, 92%, 88%, 0.32)"
+			}
+		},
+		{
+			"id": "admin_level_0",
+			"type": "line",
+			"source": "naturalearth_vector",
+			"source-layer": "admin",
+			"filter": [
+				"all",
+				[
+					"all",
+					[
+						"!=",
+						"class",
+						"dispute"
+					],
+					[
+						"==",
+						"admin_level",
+						0
+					]
+				],
+				[
+					"in",
+					"$type",
+					"LineString",
+					"Point",
+					"Polygon"
+				]
+			],
+			"layout": {
+				"line-join": "round",
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "#9e9cab",
+				"line-width": {
+					"base": 1,
+					"stops": [
+						[
+							2,
+							0.4
+						],
+						[
+							5,
+							1
+						],
+						[
+							12,
+							3
+						]
+					]
+				}
+			}
+		},
+		{
+			"id": "admin_level_0_disputed",
+			"type": "line",
+			"source": "naturalearth_vector",
+			"source-layer": "admin",
+			"filter": [
+				"all",
+				[
+					"==",
+					"admin_level",
+					0
+				],
+				[
+					"==",
+					"class",
+					"dispute"
+				]
+			],
+			"layout": {
+				"line-cap": "round"
+			},
+			"paint": {
+				"line-color": "#9e9cab",
+				"line-dasharray": [
+					2,
+					2
+				],
+				"line-width": {
+					"base": 1,
+					"stops": [
+						[
+							2,
+							0.4
+						],
+						[
+							5,
+							1
+						],
+						[
+							12,
+							3
+						]
+					]
+				}
+			}
+		},
+		{
+			"id": "road_motorway_casing",
+			"type": "line",
+			"source": "naturalearth_vector",
+			"source-layer": "road",
+			"minzoom": 5,
+			"filter": [
+				"!=",
+				"featureclass",
+				"Ferry"
+			],
+			"layout": {
+				"line-cap": "round",
+				"line-join": "round",
+				"visibility": "visible"
+			},
+			"paint": {
+				"line-color": "#e9ac77",
+				"line-width": {
+					"base": 1.2,
+					"stops": [
+						[
+							5,
+							0.4
+						],
+						[
+							6,
+							0.6
+						],
+						[
+							7,
+							1.5
+						],
+						[
+							20,
+							22
+						]
+					]
+				}
+			}
+		},
+		{
+			"id": "road_motorway",
+			"ref": "road_motorway_casing",
+			"paint": {
+				"line-color": "#fc8",
+				"line-width": {
+					"base": 1.2,
+					"stops": [
+						[
+							6.5,
+							0
+						],
+						[
+							7,
+							0.5
+						],
+						[
+							20,
+							18
+						]
+					]
+				}
+			}
+		}
+	]
+}
