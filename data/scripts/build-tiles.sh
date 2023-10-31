@@ -8,7 +8,7 @@
 set -e
 
 # Declare constants
-SHELL_EXEC="exec"
+SHELL_EXEC=""
 DOCKER_EXEC="docker run --rm --user $UID:$GID -v "$(pwd):/workspace" -w /workspace zhibek/osm-toolbox:1.2.0"
 EXEC=$SHELL_EXEC
 
@@ -23,7 +23,7 @@ done
 
 # Fallback to environment vars or defaults for input variables
 AREA="${AREA:=}" # Required. Example: great_britain OR greater_london
-DOCKER="${DOCKER:=true}" # Default: True (i.e. Run with Docker)
+DOCKER="${DOCKER:=false}" # Default: False (i.e. Run without Docker)
 
 # Validate input variables are set
 [ -z "$AREA" ] && echo "AREA must be set, either as an environment variable or using -a command flag." && exit 1;
