@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "data/**"
-      - ".github/data.yml"
+      - ".github/workflows/data.yml"
 
 jobs:
   main:
@@ -41,5 +41,6 @@ jobs:
 
     - uses: stefanzweifel/git-auto-commit-action@v5
       if: steps.is_updated.outputs.changed != 0
+      working-directory: ./
       with:
         commit_message: Update tiles
