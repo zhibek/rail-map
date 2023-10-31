@@ -8,9 +8,8 @@
 set -e
 
 # Declare constants
-SHELL_EXEC=""
+EXEC=""
 DOCKER_EXEC="docker run --rm --user $UID:$GID -v "$(pwd):/workspace" -w /workspace zhibek/osm-toolbox:1.3.0"
-EXEC=$SHELL_EXEC
 
 # Accept input variables from command flags
 while getopts a:d: flag
@@ -48,20 +47,28 @@ $EXEC osm-filter \
 ls -lah ./files/$AREA-railways.osm.pbf
 
 echo "* Export OSM output to GeoJson using *Osmium*..."
-$EXEC osm-to-geojson \
--i ./files/$AREA-railways.osm.pbf \
--o ./files/$AREA-railways.geojson
+$EXEC osmium export \
+./files/$AREA-railways.osm.pbf \
+-o ./files/$AREA-railways.geojson \
+-f geojsonseq \
+--overwrite
 ls -lah ./files/$AREA-railways.geojson
-rm -f ./files/$AREA-railways.osm.pbf
+
+echo "* Transforming features using *jq*"
+$(dirname "$0")/transform-features.sh < ./files/$AREA-railways.geojson > ./files/$AREA-railways-transformed.geojson
+ls -lah ./files/$AREA-railways-transformed.geojson
+rm -f ./files/$AREA-railways.geojson
 
 echo "* Convert GeoJson to PMTiles using *Tippecanoe*..."
-$EXEC tippecanoe -z12 \
+$EXEC tippecanoe \
+-z12 \
+-P \
+-L railways:./files/$AREA-railways-transformed.geojson \
 -o "./files/$AREA-railways.pmtiles" \
--L railways:./files/$AREA-railways.geojson \
 --drop-densest-as-needed \
 --force
 ls -lah ./files/$AREA-railways.pmtiles
-rm -f ./files/$AREA-railways.geojson
+rm -f ./files/$AREA-railways-transformed.geojson
 
 # Confirm completion
 echo "* Build completed!"
