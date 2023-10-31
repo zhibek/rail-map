@@ -40,11 +40,13 @@ jobs:
       if: steps.is_updated.outputs.changed != 0
       run: |-
         ls -al
+        git config --global --add safe.directory $(pwd)
         git status  
 
     - name: Commit data files
       if: steps.is_updated.outputs.changed != 0
       run: |
+        git config --global --add safe.directory $(pwd)
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add ./public/files
