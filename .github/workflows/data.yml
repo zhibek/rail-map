@@ -23,7 +23,9 @@ jobs:
         - .:/workspace
       options: --workdir /workspace
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      # https://github.com/settings/tokens?type=beta
+      token: ${{ secrets.PAT }}
 
     - run: bash -x scripts/build-tiles.sh
 
@@ -37,18 +39,7 @@ jobs:
       run: |-
         cp ./files/*.pmtiles ../public/files/railways.pmtiles
 
-    - name: Commit data files
+    - uses: stefanzweifel/git-auto-commit-action@v5
       if: steps.is_updated.outputs.changed != 0
-      uses: docker://alpine/git
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add ../public/files
-        git commit -m "Update at $(date +'%Y-%m-%d %H:%M')"
-
-    - name: Push changes
-      if: steps.is_updated.outputs.changed != 0
-      uses: ad-m/github-push-action@master
       with:
-        # https://github.com/settings/tokens?type=beta
-        github_token: ${{ secrets.PAT }}
+        commit_message: Update tiles
