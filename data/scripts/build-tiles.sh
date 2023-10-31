@@ -37,31 +37,31 @@ fi
 echo "* Download OSM data for area..."
 $EXEC osm-download \
 -a "$AREA" \
--o "./sources/$AREA.osm.pbf"
+-o "./files/$AREA.osm.pbf"
 
 echo "* Extract railway data with *Osmium*..."
 $EXEC osm-filter \
 -f railway \
 -a "$AREA" \
--i "./sources/$AREA.osm.pbf" \
--o ./tmp/$AREA-railways.osm.pbf
-ls -lah ./tmp/$AREA-railways.osm.pbf
+-i "./files/$AREA.osm.pbf" \
+-o ./files/$AREA-railways.osm.pbf
+ls -lah ./files/$AREA-railways.osm.pbf
 
 echo "* Export OSM output to GeoJson using *Osmium*..."
 $EXEC osm-to-geojson \
--i ./tmp/$AREA-railways.osm.pbf \
--o ./tmp/$AREA-railways.geojson
-ls -lah ./tmp/$AREA-railways.geojson
-rm -f ./tmp/$AREA-railways.osm.pbf
+-i ./files/$AREA-railways.osm.pbf \
+-o ./files/$AREA-railways.geojson
+ls -lah ./files/$AREA-railways.geojson
+rm -f ./files/$AREA-railways.osm.pbf
 
 echo "* Convert GeoJson to PMTiles using *Tippecanoe*..."
 $EXEC tippecanoe -z12 \
--o "./$AREA-railways.pmtiles" \
--L railways:./tmp/$AREA-railways.geojson \
+-o "./files/$AREA-railways.pmtiles" \
+-L railways:./files/$AREA-railways.geojson \
 --drop-densest-as-needed \
 --force
-ls -lah ./$AREA-railways.pmtiles
-rm -f ./tmp/$AREA-railways.geojson
+ls -lah ./files/$AREA-railways.pmtiles
+rm -f ./files/$AREA-railways.geojson
 
 # Confirm completion
 echo "* Build completed!"

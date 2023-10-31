@@ -24,4 +24,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - run: mkdir -p ./sources; mkdir -p ./tmp; bash -x scripts/build-tiles.sh
+    - run: bash -x scripts/build-tiles.sh
