@@ -14,7 +14,7 @@
 			"url": "pmtiles://files/railways.pmtiles"
 		}
 	},
-	"glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=uLpPPYztZ2N8w3JqsQy2",
+	"glyphs": "https://fonts.openmaptiles.org/Klokantech {fontstack}/{range}.pbf",
 	"sprite": "https://api.maptiler.com/maps/streets/sprite",
 	"layers": [{
 			"id": "background",
@@ -236,18 +236,114 @@
 			}
 		},
 		{
-			"id": "railway_line",
+			"id": "railway_mainline_line",
 			"source": "railways",
 			"source-layer": "railways",
 			"type": "line",
+			"minzoom": 0,
+			"filter": [
+				"all",
+				[
+					"all",
+					[
+						"==",
+						"railway",
+						"rail"
+					],
+					[
+						"in",
+						"usage",
+						"main",
+						"branch"
+					]
+				],
+				[
+					"in",
+					"$type",
+					"LineString"
+				]
+			],
 			"layout": {
-				"line-cap": "butt",
-				"line-join": "bevel",
-				"visibility": "visible"
+				"line-join": "round",
+				"line-cap": "round"
 			},
 			"paint": {
-				"line-color": "rgba(0, 0, 0, 0.8)",
-				"line-width": 1
+				"line-color": "rgba(100, 100, 100, 1)",
+				"line-width": {
+					"base": 1,
+					"stops": [
+						[
+							2,
+							0.4
+						],
+						[
+							5,
+							1
+						],
+						[
+							12,
+							3
+						]
+					]
+				}
+			}
+		},
+		{
+			"id": "railway_mainline_station",
+			"source": "railways",
+			"source-layer": "railways",
+			"type": "symbol",
+			"minzoom": 9,
+			"filter": [
+				"all",
+				[
+					"all",
+					[
+						"==",
+						"railway",
+						"station"
+					],
+					[
+						"!=",
+						"usage",
+						"tourism"
+					],
+					[
+						"!in",
+						"station",
+						"light_rail",
+						"subway",
+						"monorail"
+					]
+
+				],
+				[
+					"in",
+					"$type",
+					"Point"
+				]
+			],
+			"paint": {
+				"icon-color": "rgba(255, 0, 0, 1)",
+				"text-color": "rgba(255, 0, 0, 1)",
+				"text-halo-width": 1.5,
+				"text-halo-color": "rgba(255, 255, 255, 0.8)"
+			},
+			"layout": {
+				"icon-image": "circle_11",
+				"icon-size": 1.1	,
+				"icon-optional": true,
+				"text-field": ["get", "name"],
+				"text-font": ["Noto Sans Regular"],
+				"text-size": [
+					"step",
+					["zoom"],
+					0,
+					11,
+					12
+				],
+				"text-anchor": "center",
+				"text-offset": [0, 0.2]
 			}
 		}
 	]
