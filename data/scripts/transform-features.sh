@@ -52,6 +52,10 @@ if
     (.properties.railway == "rail" and .properties.usage == "main" and (.properties | has("service") != true) and (.properties | has("railway:preserved") != true))
 then
     .tippecanoe.minzoom = 0
+elif
+    (.properties.railway == "rail" and .properties.usage == "branch" and (.properties | has("service") != true) and (.properties | has("railway:preserved") != true))
+then
+    .tippecanoe.minzoom = 6
 else
     .tippecanoe.minzoom = 9
 end
