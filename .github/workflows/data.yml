@@ -24,8 +24,8 @@ jobs:
       options: --workdir /workspace
     steps:
     - uses: actions/checkout@v4
-      # https://github.com/settings/tokens?type=beta
-      token: ${{ secrets.PAT }}
+      with:
+        token: ${{ secrets.PAT }}
 
     - run: bash -x scripts/build-tiles.sh
 
