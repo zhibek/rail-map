@@ -1,7 +1,7 @@
 const App = () => {
   return (
     <div className="App">
-      <h1>Travel Map</h1>
+      <h1>Rail Map</h1>
     </div>
   );
 };

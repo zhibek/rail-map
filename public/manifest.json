@@ -1,6 +1,6 @@
 {
-  "short_name": "Travel Map",
-  "name": "Travel Map",
+  "short_name": "Rail Map",
+  "name": "Rail Map",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
