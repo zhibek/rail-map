@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "data/**"
+      - ".github/data.yml"
 
 jobs:
   main:
@@ -17,7 +18,7 @@ jobs:
       image: zhibek/osm-toolbox:1.2.0
       env:
         DOCKER: false
-        AREA: belgium
+        AREA: monaco
       volumes:
         - .:/workspace
       options: --workdir /workspace
@@ -38,6 +39,7 @@ jobs:
 
     - name: Commit data files
       if: steps.is_updated.outputs.changed != 0
+      uses: docker://alpine/git
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
