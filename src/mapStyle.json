@@ -255,6 +255,14 @@
 						"usage",
 						"main",
 						"branch"
+					],
+					[
+						"!has",
+						"service"
+					],
+					[
+						"!has",
+						"railway:preserved"
 					]
 				],
 				[
