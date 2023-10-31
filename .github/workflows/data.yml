@@ -36,6 +36,12 @@ jobs:
       run: |-
         cp ./data/files/*.pmtiles ./public/files/railways.pmtiles
 
+    - name: Debug
+      if: steps.is_updated.outputs.changed != 0
+      run: |-
+        ls -al
+        git status  
+
     - name: Commit data files
       if: steps.is_updated.outputs.changed != 0
       run: |
