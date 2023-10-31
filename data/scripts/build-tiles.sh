@@ -35,12 +35,15 @@ then
 fi
 
 echo "* Download OSM data for area..."
-$EXEC osm-download -a "$AREA"
+$EXEC osm-download \
+-a "$AREA" \
+-o "./sources/$AREA.osm.pbf"
 
 echo "* Extract railway data with *Osmium*..."
 $EXEC osm-filter \
--a "$AREA" \
 -f railway \
+-a "$AREA" \
+-i "./sources/$AREA.osm.pbf" \
 -o ./tmp/$AREA-railways.osm.pbf
 ls -lah ./tmp/$AREA-railways.osm.pbf
 
@@ -51,7 +54,7 @@ $EXEC osm-to-geojson \
 ls -lah ./tmp/$AREA-railways.geojson
 rm -f ./tmp/$AREA-railways.osm.pbf
 
-# echo "* Convert GeoJson to PMTiles using *Tippecanoe*..."
+echo "* Convert GeoJson to PMTiles using *Tippecanoe*..."
 $EXEC tippecanoe -z12 \
 -o "./$AREA-railways.pmtiles" \
 -L railways:./tmp/$AREA-railways.geojson \
