@@ -39,8 +39,16 @@ jobs:
       run: |-
         cp ./files/*.pmtiles ../public/files/railways.pmtiles
 
-    - uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Commit data files
       if: steps.is_updated.outputs.changed != 0
-      working-directory: ./
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ../public/files
+        git commit -m "Update at $(date +'%Y-%m-%d %H:%M')"
+
+    - name: Push changes
+      if: steps.is_updated.outputs.changed != 0
+      uses: ad-m/github-push-action@master
       with:
-        commit_message: Update tiles
+        github_token: ${{ secrets.PAT }}
