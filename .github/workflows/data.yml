@@ -17,7 +17,7 @@ jobs:
       image: zhibek/osm-toolbox:1.2.0
       env:
         DOCKER: false
-        AREA: england
+        AREA: great-britain
       volumes:
         - .:/workspace
       options: --workdir /workspace
@@ -25,3 +25,28 @@ jobs:
     - uses: actions/checkout@v3
 
     - run: bash -x scripts/build-tiles.sh
+
+    - name: Set variable to check if anything changed
+      id: is_updated
+      run: |-
+        echo "##[set-output name=changed;]$(ls -al ./files/*.pmtiles | wc -l)"
+
+    - name: Copy data files
+      if: steps.is_updated.outputs.changed != 0
+      run: |-
+        cp ./files/*.pmtiles ../public/files/railways.pmtiles
+
+    - name: Commit data files
+      if: steps.is_updated.outputs.changed != 0
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ../public/files
+        git commit -m "Update at $(date +'%Y-%m-%d %H:%M')"
+
+    - name: Push changes
+      if: steps.is_updated.outputs.changed != 0
+      uses: ad-m/github-push-action@master
+      with:
+        # https://github.com/settings/tokens?type=beta
+        github_token: ${{ secrets.PAT }}
