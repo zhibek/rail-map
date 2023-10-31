@@ -5,6 +5,7 @@
   "homepage": "https://zhibek.github.io/rail-map/",
   "dependencies": {
     "maplibre-gl": "^3.3.1",
+    "pmtiles": "^2.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.6",

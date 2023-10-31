@@ -7,6 +7,11 @@
 			"tiles": [
 				"https://klokantech.github.io/naturalearthtiles/tiles/natural_earth.vector/{z}/{x}/{y}.pbf"
 			]
+		},
+		"railways": {
+			"type": "vector",
+			"maxzoom": 12,
+			"url": "pmtiles://files/railways.pmtiles"
 		}
 	},
 	"glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=uLpPPYztZ2N8w3JqsQy2",
@@ -228,6 +233,21 @@
 						]
 					]
 				}
+			}
+		},
+		{
+			"id": "railway_line",
+			"source": "railways",
+			"source-layer": "railways",
+			"type": "line",
+			"layout": {
+				"line-cap": "butt",
+				"line-join": "bevel",
+				"visibility": "visible"
+			},
+			"paint": {
+				"line-color": "rgba(0, 0, 0, 0.8)",
+				"line-width": 1
 			}
 		}
 	]
