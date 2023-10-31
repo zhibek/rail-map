@@ -9,7 +9,7 @@ set -e
 
 # Declare constants
 SHELL_EXEC=""
-DOCKER_EXEC="docker run --rm --user $UID:$GID -v "$(pwd):/workspace" -w /workspace zhibek/osm-toolbox:1.2.0"
+DOCKER_EXEC="docker run --rm --user $UID:$GID -v "$(pwd):/workspace" -w /workspace zhibek/osm-toolbox:1.3.0"
 EXEC=$SHELL_EXEC
 
 # Accept input variables from command flags
