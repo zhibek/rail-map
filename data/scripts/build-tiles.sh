@@ -8,7 +8,7 @@
 set -e
 
 # Declare constants
-SHELL_EXEC="bash"
+SHELL_EXEC="exec"
 DOCKER_EXEC="docker run --rm --user $UID:$GID -v "$(pwd):/workspace" -w /workspace zhibek/osm-toolbox:1.2.0"
 EXEC=$SHELL_EXEC
 
