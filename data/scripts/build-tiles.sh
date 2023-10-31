@@ -22,7 +22,7 @@ do
 done
 
 # Fallback to environment vars or defaults for input variables
-AREA="${AREA:=}" # Required. Example: great_britain OR belgium
+AREA="${AREA:=}" # Required. Example: great_britain
 DOCKER="${DOCKER:=false}" # Default: False (i.e. Run without Docker)
 
 # Validate input variables are set
