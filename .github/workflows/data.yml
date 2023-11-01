@@ -15,7 +15,7 @@ jobs:
       image: zhibek/osm-toolbox:1.3.0
       env:
         DOCKER: false
-        AREA: europe
+        AREA: asia
       volumes:
         - .:/workspace
       options: --workdir /workspace
