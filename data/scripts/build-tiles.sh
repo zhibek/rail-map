@@ -53,6 +53,7 @@ $EXEC osmium export \
 -f geojsonseq \
 --overwrite
 ls -lah ./files/$AREA-railways.geojson
+rm ./files/$AREA-railways.osm.pbf
 
 echo "* Transforming features using *jq*"
 $(dirname "$0")/transform-features.sh < ./files/$AREA-railways.geojson > ./files/$AREA-railways-transformed.geojson
@@ -66,6 +67,7 @@ $EXEC tippecanoe \
 -L railways:./files/$AREA-railways-transformed.geojson \
 -o "./files/$AREA-railways.pmtiles" \
 --drop-densest-as-needed \
+--extend-zooms-if-still-dropping \
 --force
 ls -lah ./files/$AREA-railways.pmtiles
 rm -f ./files/$AREA-railways-transformed.geojson
